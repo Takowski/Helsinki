@@ -20,10 +20,11 @@ const Content = ({parts}) => {
 </div>
   )
 }
-const Total = (props) => {
+const Total = ({parts}) => {
+  const total=+parts[0].exercises + +parts[1].exercises + +parts[2].exercises
   return (
     <div>
-      <p>Number of exercices {props.exercises1 + props.exercises2 + props.exercises3}</p>
+      <p>Number of exercices {total}</p>
     </div>
   )
 }
