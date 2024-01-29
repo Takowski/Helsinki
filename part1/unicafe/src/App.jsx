@@ -1,14 +1,15 @@
 import { useState } from 'react'
 
-const StaticLine = ({text,value}) =>
+const StaticLine = ({ text, value }) =>
 
-<p>{text} : {value}</p>
+<tr>
+<td>{text}</td>
+<td>{value}</td>
+</tr>
 
 const Statistics = ({ good, neutral, bad, all }) => {
-  // add all for use the all state in props 
   const average = all !== 0 ? ((good - bad) / all) : 0;
   const positive = all !== 0 ? (good / all) * 100 : 0;
-  const allResult = good + bad + neutral
   if (all === 0) {
     return (
       <>
@@ -20,24 +21,21 @@ const Statistics = ({ good, neutral, bad, all }) => {
 
   return (
     <>
-      <h1>Statistics</h1>
+      <table>
+      <thead><h1>Statistics</h1></thead>
+        <tbody>
       <StaticLine text="good" value={good} />
       <StaticLine text="neutral" value={neutral} />
       <StaticLine text="bad" value={bad} />
       <StaticLine text="all" value={all} />
       <StaticLine text="average" value={average} />
       <StaticLine text="positive" value={positive + " %"} />
-      {/* <p>Good {good}</p>
-      <p>Neutral {neutral}</p>
-      <p>Bad {bad}</p>
-      <p>all {all}</p>
-      <p>all {allResult}</p>
-      <p>average {average} </p>
-      <p>positive {positive} %</p> */}
+      </tbody>
+      </table>
     </>
   )
 }
-const ButtonHandle = ({setGood,setNeutral,setBad,setToAll,good, neutral, bad, all}) => {
+const ButtonHandle = ({ setGood, setNeutral, setBad, setToAll, good, neutral, bad, all }) => {
 
   const setToGood = (newGood) => {
     console.log('good now', newGood)
@@ -56,10 +54,10 @@ const ButtonHandle = ({setGood,setNeutral,setBad,setToAll,good, neutral, bad, al
   }
   return (
     <>
-        <button onClick={() => setToGood(good + 1)}>Good</button>
+      <button onClick={() => setToGood(good + 1)}>Good</button>
       <button onClick={() => setToNeutral(neutral + 1)}>neutral</button>
       <button onClick={() => setToBad(bad + 1)}>bad</button>
-  </>
+    </>
   )
 }
 
