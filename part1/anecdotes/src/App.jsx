@@ -1,10 +1,33 @@
 import { useState } from 'react'
 
+const AnecdoteDays = ({ anecdotes, selected, points }) => {
+  return (
+    <div>
+      <h1>Anecdote of the day</h1>
+      <p>{anecdotes[selected]}</p>
+      <p> has {points[selected]} votes</p>
+    </div>
+  )
+}
 
-const Button = ({ setSelected, anecdotes,handleVote,selected }) => {
-  const max = anecdotes.length;
-  const random = () => Math.floor(Math.random() * max);
+const AnecdoteMost = ({ anecdotes, points, maxVoteIndex }) => {
+  return (
+    <div>
+      <h1>Anecdotes with most votes</h1>
+      {points.every(point => point === 0) ? (
+        <p>No votes yet</p>
+      ) : (
+        <div>
+          <p>{anecdotes[maxVoteIndex]}</p>
+          <p>has {points[maxVoteIndex]} votes</p>
+        </div>
+      )}
+    </div>
+  )
+}
 
+
+const Button = ({ setSelected, handleVote, selected, random }) => {
   return (
     <div>
       <button onClick={() => handleVote(selected)}>vote </button>
@@ -27,25 +50,32 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
   ]
-  const [selected, setSelected] = useState(0)
-  const [points,setPoints]= useState(new Array(anecdotes.length).fill(0))
+  const max = anecdotes.length;
+  const random = () => Math.floor(Math.random() * max)
+
+  const [selected, setSelected] = useState(random())
+  const [points, setPoints] = useState(new Array(anecdotes.length).fill(0))
+
 
   const handleVote = (index) => {
-    const newPoints=[...points]
+    const newPoints = [...points]
     newPoints[index] += 1
     setPoints(newPoints)
-    console.log("newPoints",newPoints)
+    console.log("newPoints", newPoints)
   }
+  const maxVoteIndex = points.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0)
+
+  console.log("Anecdote with the most votes:", anecdotes[maxVoteIndex])
 
   console.log(selected)
-  console.log("points",points)
-  
+  console.log("points", points)
+
   return (
     <div>
-      {anecdotes[selected]}
-     <p> has {points[selected]} votes</p>
-      <Button setSelected={setSelected} anecdotes={anecdotes} handleVote={handleVote} selected={selected} />
-      
+      <AnecdoteDays anecdotes={anecdotes} points={points} selected={selected} random={random} />
+      <Button setSelected={setSelected} anecdotes={anecdotes} handleVote={handleVote} selected={selected} random={random} />
+      <AnecdoteMost anecdotes={anecdotes} points={points} selected={selected} maxVoteIndex={maxVoteIndex} />
+
     </div>
   )
 }
