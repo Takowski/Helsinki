@@ -3,7 +3,11 @@ const Header = ({ name }) => <h1>{name}</h1>
 const Total = ({parts}) => {
   return(
     <div>
-      <b>Total of {parts.reduce((total,part)=>total + part.exercises,0)} exercices</b>
+      <b>Total of {parts.reduce((total, part) => {
+  console.log('total:', total);
+  console.log('part:', part);
+  return total + part.exercises;
+}, 0)} exercices</b>
     </div>
   )
 }
