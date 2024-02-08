@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Numbers = ({ name,number}) => {
+const Numbers = ({ name, number }) => {
   return (
     <li>{name} {number}</li>
   )
@@ -8,12 +8,14 @@ const Numbers = ({ name,number}) => {
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas',
-      number: '040-1234567'
-  }
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ])
   const [newName, setNewName] = useState('new name')
-  const [newNumber,setNewNumber] = useState('add number')
+  const [newNumber, setNewNumber] = useState('add number')
+  const [search,setSearch] = useState('')
 
   const addNumber = (event) => {
     event.preventDefault()
@@ -34,26 +36,48 @@ const App = () => {
     console.log(e.target.value);
     setNewName(e.target.value)
   }
-  const handleNumberChange = (e) =>{
-  setNewNumber(e.target.value)
+  const handleNumberChange = (e) => {
+    setNewNumber(e.target.value)
   }
+const handleSearchChange = (e) => {
+  console.log(e.target.value);
+  setSearch(e.target.value)
+}
+
+const filter = search === ""
+? persons
+: persons.filter(person => person.name.toLowerCase().startsWith(search.toLowerCase()))
+
 
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+      Filter shown with <input
+      value={search}
+      onChange={handleSearchChange}
+      >
+
+      </input>
+      </div>
+      <h2>add a new</h2>
       <form
         onSubmit={addNumber} >
         <div>
-          <input
+          Name :<input
             value={newName}
             onChange={handleNameChange}
           />
-          <input
+        </div>
+        <br />
+        <div>
+          Number : <input
             value={newNumber}
             onChange={handleNumberChange}
           />
         </div>
+        <br />
         <div>
           <button type="submit">add</button>
         </div>
@@ -61,7 +85,7 @@ const App = () => {
       <h2>Numbers</h2>
       <div>
         <ul>
-          {persons.map(person => <Numbers key={person.name} name={person.name} number={person.number} />)}
+          {filter.map(person => <Numbers key={person.id} name={person.name} number={person.number} />)}
         </ul>
       </div>
     </div>
