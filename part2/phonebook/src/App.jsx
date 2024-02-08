@@ -17,16 +17,17 @@ const App = () => {
     const numberObject = {
       name: newName
     }
-
-    setPersons(persons.concat(numberObject))
+    const alreadyExist = persons.some(person => person.name === numberObject.name)
+    alreadyExist
+      ? alert(`${numberObject.name} is already added to phonebook `)
+      :
+      setPersons(persons.concat(numberObject))
     setNewName('')
     console.log('button clicked', event.target)
   }
-
   const HandleNameChange = (e) => {
     console.log(e.target.value);
     setNewName(e.target.value)
-
   }
 
 
