@@ -1,21 +1,25 @@
 import { useState } from 'react'
 
-const Numbers = ({ name }) => {
+const Numbers = ({ name,number}) => {
   return (
-    <li>{name}</li>
+    <li>{name} {number}</li>
   )
 }
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas',
+      number: '040-1234567'
+  }
   ])
   const [newName, setNewName] = useState('new name')
+  const [newNumber,setNewNumber] = useState('add number')
 
   const addNumber = (event) => {
     event.preventDefault()
     const numberObject = {
-      name: newName
+      name: newName,
+      number: newNumber
     }
     const alreadyExist = persons.some(person => person.name === numberObject.name)
     alreadyExist
@@ -23,13 +27,16 @@ const App = () => {
       :
       setPersons(persons.concat(numberObject))
     setNewName('')
+    setNewNumber('')
     console.log('button clicked', event.target)
   }
-  const HandleNameChange = (e) => {
+  const handleNameChange = (e) => {
     console.log(e.target.value);
     setNewName(e.target.value)
   }
-
+  const handleNumberChange = (e) =>{
+  setNewNumber(e.target.value)
+  }
 
 
   return (
@@ -40,7 +47,11 @@ const App = () => {
         <div>
           <input
             value={newName}
-            onChange={HandleNameChange}
+            onChange={handleNameChange}
+          />
+          <input
+            value={newNumber}
+            onChange={handleNumberChange}
           />
         </div>
         <div>
@@ -50,7 +61,7 @@ const App = () => {
       <h2>Numbers</h2>
       <div>
         <ul>
-          {persons.map(person => <Numbers key={person.name} name={person.name} />)}
+          {persons.map(person => <Numbers key={person.name} name={person.name} number={person.number} />)}
         </ul>
       </div>
     </div>
