@@ -3,6 +3,7 @@ import axios from 'axios'
 import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
 import Persons from './components/Persons'
+import data from './services/data'
 
 
 const App = () => {
@@ -13,8 +14,8 @@ const App = () => {
 
   const hook =()=>{
     console.log('effect');
-    axios
-    .get('http://localhost:3001/persons')
+    data
+    .getPhoneBook()
     .then(response=>{
       console.log('promise fulfilled')
       setPersons(response.data)
