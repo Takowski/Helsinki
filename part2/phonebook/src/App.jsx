@@ -44,7 +44,7 @@ const handleSearchChange = (e) => {
       <h2>add a new</h2>
       <PersonForm handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} persons={persons} setPersons={setPersons} setNewName={setNewName} setNewNumber={setNewNumber} newName={newName} newNumber={newNumber}/>
       <h2>Numbers</h2>
-      <Persons persons={persons}/>
+      <Persons persons={persons} search={search}/>
     </div>
   )
 }

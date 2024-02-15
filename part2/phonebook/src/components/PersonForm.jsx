@@ -1,18 +1,25 @@
+import axios from 'axios'
 
-
-const PersonForm = ({ newName, newNumber, persons, setPersons, setNewName, setNewNumber,handleNameChange,handleNumberChange}) => {
+const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNewNumber,handleNameChange,handleNumberChange}) => {
 const addNumber = (event) => {
   event.preventDefault()
   const numberObject = {
     name: newName,
     number: newNumber,
-    id: newNumber + Math.floor(Math.random() * 1000)
+    // id: newNumber + Math.floor(Math.random() * 1000)
     
   }
-  const alreadyExist = persons.some(person => person.name === numberObject.name)
-  alreadyExist
-    ? alert(`${numberObject.name} is already added to phonebook `)
-    :
+axios
+.post('http://localhost:3001/persons',numberObject)
+.then(response =>{
+  console.log(response)
+})
+
+
+  // const alreadyExist = persons.some(person => person.name === numberObject.name)
+  // alreadyExist
+  //   ? alert(`${numberObject.name} is already added to phonebook `)
+  //   :
     setPersons(persons.concat(numberObject))
   setNewName('')
   setNewNumber('')
