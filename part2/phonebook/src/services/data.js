@@ -10,8 +10,13 @@ const postPhoneBook= numberObject => {
     return axios.post(baseUrl,numberObject)
 }
 
+const deletePhoneBook= (id) => {
+    return axios.delete(`${baseUrl}/${id}`)
+}
+
 export default {
     getPhoneBook,
-    postPhoneBook 
+    postPhoneBook,
+    deletePhoneBook 
    
 }

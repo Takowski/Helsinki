@@ -11,7 +11,7 @@ const Persons = ({persons, search}) => {
   if (search === "") {
       return (
           <div>
-              {persons.map(person => <Numbers key={person.id} name={person.name} number={person.number} />)}
+              {persons.map(person => <Numbers key={person.id} name={person.name} number={person.number} id={person.id}/>)}
           </div>
       );
   } else {

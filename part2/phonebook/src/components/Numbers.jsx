@@ -1,6 +1,10 @@
-const Numbers =({name,number}) =>{
+import data from '../services/data'
+
+const Numbers =({name,number,id}) =>{
     return(
-        <li>{name}{number}</li>
+        <li>{name}{number}
+        <button onClick={()=>data.deletePhoneBook(id)} >Delete</button>
+        </li>
     )
 }
 
