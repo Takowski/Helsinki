@@ -1,6 +1,6 @@
-import Numbers from "./numbers"
+import Numbers from "./Numbers"
 
-const Persons = ({persons, search}) => {
+const Persons = ({persons, search,setPersons}) => {
   console.log('Persons:', persons);
   console.log('Search:', search);
 
@@ -11,7 +11,7 @@ const Persons = ({persons, search}) => {
   if (search === "") {
       return (
           <div>
-              {persons.map(person => <Numbers key={person.id} name={person.name} number={person.number} id={person.id}/>)}
+              {persons.map(person => <Numbers key={person.id} name={person.name} number={person.number} id={person.id} setPersons={setPersons} persons={persons}/>)}
           </div>
       );
   } else {
