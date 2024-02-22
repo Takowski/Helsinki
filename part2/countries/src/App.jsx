@@ -32,7 +32,7 @@ function App() {
     <div>
       
       <SearchBar search={search} HandleSearchChange={HandleSearchChange} />
-      <Countrielist filteredCountries={filteredCountries}/>
+      <Countrielist filteredCountries={filteredCountries} setSearch={setSearch}/>
 
     </div>
   )
