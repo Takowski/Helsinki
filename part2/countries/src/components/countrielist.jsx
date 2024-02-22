@@ -1,4 +1,4 @@
-const Countrielist = ({ filteredCountries, setSearch }) => {
+const Countrielist = ({ filteredCountries, setSearch, weather }) => {
   const showCountry = (country) => {
     console.log(country.name.common)
     setSearch(country.name.common)
@@ -26,16 +26,24 @@ const Countrielist = ({ filteredCountries, setSearch }) => {
         <div>
           <h1>{country.name.common}</h1>
           <p>Capital: {country.capital[0]}</p>
-          <p>Area: {country.area} square km</p>
-          <h2>Languages</h2>
+          <p>Area: {country.area} km²</p>
+          <h3>Languages</h3>
           <ul>
             {Object.values(country.languages).map(language => (
               <li key={language}>{language}</li>
             ))}
           </ul>
           <img src={country.flags.png} alt={`Flag of ${country.name.common}`} width="100" />
+          {weather && (
+            <div>
+              <h2>Weather in {country.capital[0]}</h2>
+              <p>Temperature: {weather.main.temp}</p>
+              <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt={weather.weather[0].description} width="100" />
+              <p>Wind Speed: {weather.wind.speed} m/s</p>
+            </div>
+          )}
         </div>
-      );
+      )
 
     default:
       return <p>No matches found</p>
