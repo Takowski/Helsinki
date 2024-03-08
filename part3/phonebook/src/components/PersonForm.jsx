@@ -5,16 +5,14 @@ const PersonForm = ({ newName, newNumber, persons, setPersons, setNewName, setNe
   const addNumber = (event) => {
     event.preventDefault()
     const numberObject = {
-      name: newName,
-      number: newNumber,
-      id: newNumber + Math.floor(Math.random() * 1000)
-
+      Name: newName,
+      Number: newNumber
     }
-    const nameAlreadyExist = persons.find(person => person.name === numberObject.name)
+    const nameAlreadyExist = persons.find(person => person.Name === numberObject.Name)
 
     nameAlreadyExist
-      ? nameAlreadyExist.number !== numberObject.number
-        ? window.confirm(`${nameAlreadyExist.name} is already added to the phonebook, replace the old number with a new one?`)
+      ? nameAlreadyExist.Number !== numberObject.Number
+        ? window.confirm(`${nameAlreadyExist.Name} is already added to the phonebook, replace the old number with a new one?`)
           ? data
             .updatePhoneBook(nameAlreadyExist.id, numberObject)
             .then(response => {
@@ -22,23 +20,23 @@ const PersonForm = ({ newName, newNumber, persons, setPersons, setNewName, setNe
               setNewName('')
               setNewNumber('')
               setNotification({
-                message: `The phone number of ${numberObject.name} was modified succesfully`,
+                message: `The phone number of ${numberObject.Name} was modified succesfully`,
                 type: 'success'
               })
               setTimeout(() => { setNotification(null) }, 5000)
               console.log('button clicked', event.target)
             })
           : console.log('Update cancelled')
-        : alert(`${numberObject.name} is already added to phonebook`)
+        : alert(`${numberObject.Name} is already added to phonebook`)
       : data
         .postPhoneBook(numberObject)
         .then(response => {
           console.log(response)
-          setPersons(persons.concat(numberObject))
+          setPersons(persons.concat(response.data))
           setNewName('')
           setNewNumber('')
           setNotification({
-            message: `${numberObject.name} was succesfully added !`,
+            message: `${numberObject.Name} was succesfully added !`,
             type: 'success'
         });
           setTimeout(() => { setNotification(null) }, 5000)
